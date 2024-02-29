@@ -1,4 +1,7 @@
 {
+  "cSpell.words": [
+    "snth"
+  ],
   "python.analysis.autoImportCompletions": true,
   "python.analysis.typeCheckingMode": "standard"
 }
