@@ -1,8 +1,22 @@
-def is_sequence_arithmetic(sequence: list[float]) -> bool:
-  return all(sequence[i] - sequence[i-1] == sequence[1] - sequence[0] \
-      for i in range(2, len(sequence)))
+from typing import override
+from sequence import Sequence
 
-def compute_nth_arithmetic_term(sequence: list[float], n: int) -> float:
-  f = sequence[0]
-  d = sequence[1] - f
-  return f + d * (n - 1)
+class ArithmeticSequence(Sequence):
+  """Sequence with terms obtained by adding a constant value to the previous ones."""
+  @override
+  def __init__(self, terms: list[float]) -> None:
+    super().__init__(terms)
+    # The common difference between the sequence elements.
+    self.d = self.a_2 - self.a_1
+
+def identify_arithmetic_sequence(terms: list[float]) -> ArithmeticSequence | None:
+  """Checks if a sequence is arithmetic and, if so, constructs ArithmeticSequence."""
+  is_arithmetic = \
+    all(terms[i] - terms[i-1] == terms[1] - terms[0] \
+      for i in range(2, len(terms)))
+  return ArithmeticSequence(terms) if is_arithmetic else None
+
+# TODO: Don't compute for `n` less than `sequence.len`
+def compute_arithmetic_term(sequence: ArithmeticSequence, n: int) -> float:
+  """Computes the nth arithmetic term for an ArithmeticSequence."""
+  return sequence.a_1 + sequence.d * (n - 1)

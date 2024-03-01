@@ -1,7 +1,4 @@
 {
-  "cSpell.words": [
-    "nths"
-  ],
   "python.analysis.autoImportCompletions": true,
   "python.analysis.typeCheckingMode": "standard"
 }

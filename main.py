@@ -1,50 +1,43 @@
-from enum import Enum
-from math import inf
+from sequences.arithmetic import compute_arithmetic_term, identify_arithmetic_sequence
+from sequences.fibonacci import compute_fibonacci_term, identify_fibonacci_sequence
+from sequences.geometric import compute_geometric_term, identify_geometric_sequence
+from sequences.quadratic import compute_quadratic_term, identify_quadratic_sequence
 
-from sequences.arithmetic import compute_nth_arithmetic_term, is_sequence_arithmetic
-from sequences.fibonacci import compute_nth_fibonacci_term, is_sequence_fibonacci
-from sequences.geometric import compute_nth_geometric_term, is_sequence_geometric
-from sequences.quadratic import compute_nth_quadratic_term, is_sequence_quadratic
+def panic(message: str) -> None:
+  print(message); exit(0)
 
-class Sequence(Enum):
-  ARITHMETIC = 0
-  GEOMETRIC = 1
-  QUADRATIC = 2
-  FIBONACCI = 3
+terms = [float(string) for string in input().split()]
+# NOTE: It's impossible to find a pattern with only one term!
+if len(terms) < 2:
+  panic("😠 Cannot identify sequences with less than 2 terms.")
 
-def identify_sequence(sequence: list[float]) -> Sequence:
-  if len(sequence) < 2:
-    # If a sequence has one element, what are we supposed to do?
-    print(f"Cannot identify a sequence with one element."); exit(1)
+# ~ Arithmetic Sequences.
+arithmetic_sequence = identify_arithmetic_sequence(terms)
+if arithmetic_sequence:
+  n = int(input())
+  print(compute_arithmetic_term(arithmetic_sequence, n))
+else:
 
-  if is_sequence_arithmetic(sequence):
-    return Sequence.ARITHMETIC
-  elif is_sequence_geometric(sequence):
-    return Sequence.GEOMETRIC
-  elif is_sequence_fibonacci(sequence):
-    return Sequence.FIBONACCI
-  elif is_sequence_quadratic(sequence):
-    return Sequence.QUADRATIC
+  # ~ Geometric Sequences.
+  geometric_sequence = identify_geometric_sequence(terms)
+  if geometric_sequence:
+    n = int(input())
+    print(compute_geometric_term(geometric_sequence, n))
   else:
-    print(f"Couldn't identify the sequence."); exit(1)
 
-def compute_nths_term(sequence: list[float], n: int) -> float:
-  sequence_type = identify_sequence(sequence)
+    # ~ Fibonacci Sequences.
+    fibonacci_sequence = identify_fibonacci_sequence(terms)
+    if fibonacci_sequence:
+      n = int(input())
+      print(compute_fibonacci_term(fibonacci_sequence, n))
+    else:
 
-  match sequence_type:
-    case Sequence.ARITHMETIC:
-      return compute_nth_arithmetic_term(sequence, n)
-    case Sequence.GEOMETRIC:
-      return compute_nth_geometric_term(sequence, n)
-    case Sequence.QUADRATIC:
-      return compute_nth_quadratic_term(sequence, n)
-    case Sequence.FIBONACCI:
-      return compute_nth_fibonacci_term(sequence, n)
+      # ~ Quadratic Sequences.
+      quadratic_sequence = identify_quadratic_sequence(terms)
+      if quadratic_sequence:
+        n = int(input())
+        print(compute_quadratic_term(quadratic_sequence, n))
+      else:
 
-sequence = [
-  # Splits the input by spaces.
-  float(string) for string in input().split()]
-# The term to compute (nth).
-n = int(input())
-
-print(compute_nths_term(sequence, n))
+        # ~ Unidentifiable Sequences.
+        panic("😟 Couldn't identify this sequence.")

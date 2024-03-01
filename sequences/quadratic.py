@@ -1,22 +1,39 @@
-from sequences.arithmetic import is_sequence_arithmetic
+from typing import override
+from sequence import Sequence
+from sequences.arithmetic import identify_arithmetic_sequence
 
-def is_sequence_quadratic(sequence: list[float]) -> bool:
-  # Calculates first-order differences.
-  diffs_1st = [sequence[i] - sequence[i - 1] for i in range(1, len(sequence))]
-  # Calculates second-order differences.
-  diffs_2nd = [diffs_1st[i] - diffs_1st[i - 1] for i in range(1, len(diffs_1st))]
+class QuadraticSequence(Sequence):
+  """Sequence with terms obtained by applying a quadratic function to n."""
+  @override
+  def __init__(self, terms: list[float], d_s: list[float], d_d: float) -> None:
+    super().__init__(terms)
+    # The differences between the terms.
+    self.d_s = d_s
+    # The constant difference between the differences of the terms.
+    self.d_d = d_d
 
-  return \
-    is_sequence_arithmetic(diffs_1st) and \
-    all(diff == diffs_2nd[0] for diff in diffs_2nd)
+def identify_quadratic_sequence(terms: list[float]) -> QuadraticSequence | None:
+  """Checks if a sequence is quadratic and, if so, constructs QuadraticSequence."""
+  # Calculates the differences between the terms.
+  d_s = [terms[i] - terms[i - 1] for i in range(1, len(terms))]
+  # Calculates difference between the differences of the terms.
+  d_d = [d_s[i] - d_s[i - 1] for i in range(1, len(d_s))]
 
-def compute_nth_quadratic_term(sequence: list[float], n: int) -> float:
+  is_quadratic = \
+    identify_arithmetic_sequence(d_s) and \
+      all(d == d_d[0] for d in d_d)
+  return QuadraticSequence(terms, d_s, d_d[0]) if is_quadratic else None
+
+# TODO: Don't compute for `n` less than `sequence.len`
+def compute_quadratic_term(sequence: QuadraticSequence, n: int) -> float:
+  """Computes the nth quadratic term for a QuadraticSequence."""
   if n == 1:
-    return sequence[0]
+    return sequence.a_1
+  if n == 2:
+    return sequence.a_2
   else:
-    i, d = 0, [sequence[1] - sequence[0]]
-    while i < n-2:
-      i += 1
-      # HACK: Only works for [4, 16, 36, 64, ...]
-      d.append(d[-1] + 8.0)
-    return sum(d) + sequence[0]
+    # The differences between the terms.
+    d_s = sequence.d_s
+    for _ in range(sequence.len - 1, n - 1):
+      d_s.append(d_s[-1] + sequence.d_d)
+    return sum(d_s) + sequence.a_1
