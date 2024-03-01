@@ -24,16 +24,16 @@ def identify_quadratic_sequence(terms: list[float]) -> QuadraticSequence | None:
       all(d == d_d[0] for d in d_d)
   return QuadraticSequence(terms, d_s, d_d[0]) if is_quadratic else None
 
-# TODO: Don't compute for `n` less than `sequence.len`
 def compute_quadratic_term(sequence: QuadraticSequence, n: int) -> float:
   """Computes the nth quadratic term for a QuadraticSequence."""
-  if n == 1:
-    return sequence.a_1
-  if n == 2:
-    return sequence.a_2
-  else:
-    # The differences between the terms.
-    d_s = sequence.d_s
-    for _ in range(sequence.len - 1, n - 1):
-      d_s.append(d_s[-1] + sequence.d_d)
-    return sum(d_s) + sequence.a_1
+  if n <= sequence.len:
+    print("😁 Gotcha! ", end="")
+    # Skips unnecessary computation.
+    return sequence.terms[n - 1]
+
+  # The differences between the terms.
+  d_s = sequence.d_s
+  # NOTE: `n - 1` because we already have an initial computed value.
+  for _ in range(sequence.len - 1, n - 1):
+    d_s.append(d_s[-1] + sequence.d_d)
+  return sum(d_s) + sequence.a_1
