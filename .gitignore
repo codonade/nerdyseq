@@ -1,0 +1,2 @@
+# Ignores weird cache files.
+__pycache__

@@ -1,4 +1,9 @@
 from enum import Enum
+from math import inf
+
+from arithmetic import compute_nth_arithmetic_term, is_arithmetic_sequence
+from fibonacci import compute_nth_fibonacci_term, is_fibonacci_sequence
+from geometric import compute_nth_geometric_term, is_geometric_sequence
 
 class Sequence(Enum):
   ARITHMETIC = 0
@@ -6,81 +11,40 @@ class Sequence(Enum):
   FIBONACCI = 2
   UNKNOWN = -1
 
-# TODO: Switch to floats instead of integers.
-def identify_sequence(sequence: list[int]) -> Sequence:
+def identify_sequence(sequence: list[float]) -> Sequence:
   if len(sequence) < 2:
     # If a sequence has one element, what are we supposed to do?
+    # TODO: Fix error code number (1, not 0).
     print(f"Cannot identify a sequence with one element."); exit(0)
 
-  # ~ Arithmetic Sequence Check.
-  arithmetic_diff = sequence[1] - sequence[0]
-  # NOTE: This difference should apply for the whole sequence.
-  is_arithmetic =\
-    all(sequence[i] - sequence[i-1] == arithmetic_diff\
-      for i in range(2, len(sequence)))
-
-  # ~ Geometric Sequence Check.
-  if sequence[0] != 0:
-    geometric_ratio = sequence[1] / sequence[0]
-    # NOTE: This ratio should apply for the whole sequence.
-    is_geometric =\
-      all(sequence[i] / sequence[i-1] == geometric_ratio\
-        for i in range(2, len(sequence)))
-  else:
-    is_geometric = False
-
-  # Fibonacci sequence check
-  is_fibonacci = True
-  for i in range(2, len(sequence)):
-    if sequence[i-1] + sequence[i-2] != sequence[i]:
-      # NOTE: The current number should be a sum of the preceding two.
-      is_fibonacci = False
-      break
-
-  if is_arithmetic:
+  if is_arithmetic_sequence(sequence):
     return Sequence.ARITHMETIC
-  elif is_geometric:
+  elif is_geometric_sequence(sequence):
     return Sequence.GEOMETRIC
-  elif is_fibonacci:
+  elif is_fibonacci_sequence(sequence):
     return Sequence.FIBONACCI
   else:
+    # TODO: Fix error code number (1, not 0).
     print(f"Couldn't identify the sequence."); exit(0)
 
-# TODO: Switch to floats instead of integers.
-def compute_snth_term(sequence: list[int], n: int) -> int:
+def compute_nths_term(sequence: list[float], n: int) -> float:
   sequence_type = identify_sequence(sequence)
 
   match sequence_type:
     case Sequence.ARITHMETIC:
-      a = sequence[0]
-      d = sequence[1] - a
-      return a + (n - 1) * d
+      return compute_nth_arithmetic_term(sequence, n)
     case Sequence.GEOMETRIC:
-      a = sequence[0]
-      r = int(sequence[1] / a)
-      return a * (r ** (n - 1))
+      return compute_nth_geometric_term(sequence, n)
     case Sequence.FIBONACCI:
-      if n == 1:
-        return sequence[0]
-      elif n == 2:
-        return sequence[1]
-      else:
-        i, c = 0, 0
-        # NOTE: Typically 0 and 1.
-        a, b = sequence[0], sequence[1]
-        while i < n:
-          c = a + b
-          a, b = b, c
-          i += 1
-        return c
+      return compute_nth_fibonacci_term(sequence, n)
     case Sequence.UNKNOWN:
       # NOTE: Case already handled by `identify_sequence`
-      return 0
+      return inf
 
 sequence = [
   # Splits the input by spaces.
-  int(string) for string in input().split()]
+  float(string) for string in input().split()]
 # The term to compute (nth).
 n = int(input())
 
-print(compute_snth_term(sequence, n))
+print(compute_nths_term(sequence, n))
