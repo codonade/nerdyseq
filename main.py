@@ -14,8 +14,7 @@ class Sequence(Enum):
 def identify_sequence(sequence: list[float]) -> Sequence:
   if len(sequence) < 2:
     # If a sequence has one element, what are we supposed to do?
-    # TODO: Fix error code number (1, not 0).
-    print(f"Cannot identify a sequence with one element."); exit(0)
+    print(f"Cannot identify a sequence with one element."); exit(1)
 
   if is_arithmetic_sequence(sequence):
     return Sequence.ARITHMETIC
@@ -24,8 +23,7 @@ def identify_sequence(sequence: list[float]) -> Sequence:
   elif is_fibonacci_sequence(sequence):
     return Sequence.FIBONACCI
   else:
-    # TODO: Fix error code number (1, not 0).
-    print(f"Couldn't identify the sequence."); exit(0)
+    print(f"Couldn't identify the sequence."); exit(1)
 
 def compute_nths_term(sequence: list[float], n: int) -> float:
   sequence_type = identify_sequence(sequence)
@@ -38,7 +36,7 @@ def compute_nths_term(sequence: list[float], n: int) -> float:
     case Sequence.FIBONACCI:
       return compute_nth_fibonacci_term(sequence, n)
     case Sequence.UNKNOWN:
-      # NOTE: Case already handled by `identify_sequence`
+      # NOTE: Case already handled by `identify_sequence`, this shouldn't be reachable.
       return inf
 
 sequence = [
