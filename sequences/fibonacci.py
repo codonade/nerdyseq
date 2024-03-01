@@ -1,4 +1,4 @@
-def is_fibonacci_sequence(sequence: list[float]) -> bool:
+def is_sequence_fibonacci(sequence: list[float]) -> bool:
   for i in range(2, len(sequence)):
     if sequence[i-1] + sequence[i-2] != sequence[i]:
       return False

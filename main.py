@@ -1,27 +1,30 @@
 from enum import Enum
 from math import inf
 
-from arithmetic import compute_nth_arithmetic_term, is_arithmetic_sequence
-from fibonacci import compute_nth_fibonacci_term, is_fibonacci_sequence
-from geometric import compute_nth_geometric_term, is_geometric_sequence
+from sequences.arithmetic import compute_nth_arithmetic_term, is_sequence_arithmetic
+from sequences.fibonacci import compute_nth_fibonacci_term, is_sequence_fibonacci
+from sequences.geometric import compute_nth_geometric_term, is_sequence_geometric
+from sequences.quadratic import compute_nth_quadratic_term, is_sequence_quadratic
 
 class Sequence(Enum):
   ARITHMETIC = 0
   GEOMETRIC = 1
-  FIBONACCI = 2
-  UNKNOWN = -1
+  QUADRATIC = 2
+  FIBONACCI = 3
 
 def identify_sequence(sequence: list[float]) -> Sequence:
   if len(sequence) < 2:
     # If a sequence has one element, what are we supposed to do?
     print(f"Cannot identify a sequence with one element."); exit(1)
 
-  if is_arithmetic_sequence(sequence):
+  if is_sequence_arithmetic(sequence):
     return Sequence.ARITHMETIC
-  elif is_geometric_sequence(sequence):
+  elif is_sequence_geometric(sequence):
     return Sequence.GEOMETRIC
-  elif is_fibonacci_sequence(sequence):
+  elif is_sequence_fibonacci(sequence):
     return Sequence.FIBONACCI
+  elif is_sequence_quadratic(sequence):
+    return Sequence.QUADRATIC
   else:
     print(f"Couldn't identify the sequence."); exit(1)
 
@@ -33,11 +36,10 @@ def compute_nths_term(sequence: list[float], n: int) -> float:
       return compute_nth_arithmetic_term(sequence, n)
     case Sequence.GEOMETRIC:
       return compute_nth_geometric_term(sequence, n)
+    case Sequence.QUADRATIC:
+      return compute_nth_quadratic_term(sequence, n)
     case Sequence.FIBONACCI:
       return compute_nth_fibonacci_term(sequence, n)
-    case Sequence.UNKNOWN:
-      # NOTE: Case already handled by `identify_sequence`, this shouldn't be reachable.
-      return inf
 
 sequence = [
   # Splits the input by spaces.
