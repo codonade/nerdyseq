@@ -27,7 +27,6 @@ def identify_quadratic_sequence(terms: list[float]) -> QuadraticSequence | None:
 def compute_quadratic_term(sequence: QuadraticSequence, n: int) -> float:
   """Computes the nth quadratic term for a QuadraticSequence."""
   if n <= len(sequence):
-    print("😁 Gotcha! ", end="")
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
 

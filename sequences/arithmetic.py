@@ -19,7 +19,6 @@ def identify_arithmetic_sequence(terms: list[float]) -> ArithmeticSequence | Non
 def compute_arithmetic_term(sequence: ArithmeticSequence, n: int) -> float:
   """Computes the nth arithmetic term for an ArithmeticSequence."""
   if n <= len(sequence):
-    print("😁 Gotcha! ", end="")
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
 

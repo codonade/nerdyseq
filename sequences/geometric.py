@@ -20,7 +20,6 @@ def identify_geometric_sequence(terms: list[float]) -> GeometricSequence | None:
 def compute_geometric_term(sequence: GeometricSequence, n: int) -> float:
   """Computes the nth geometric term for a GeometricSequence."""
   if n <= len(sequence):
-    print("😁 Gotcha! ", end="")
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
 

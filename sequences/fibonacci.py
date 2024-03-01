@@ -22,7 +22,6 @@ def identify_fibonacci_sequence(terms: list[float]) -> FibonacciSequence | None:
 def compute_fibonacci_term(sequence: FibonacciSequence, n: int) -> float:
   """Computes the nth fibonacci term for a FibonacciSequence."""
   if n <= len(sequence):
-    print("😁 Gotcha! ", end="")
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
 
