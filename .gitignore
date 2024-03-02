@@ -1,2 +1,4 @@
 # Ignores weird cache files.
 __pycache__
+# Ignores Python virutal environment.
+.venv
