@@ -6,10 +6,15 @@ class FibonacciSequence(Sequence):
   @override
   def __init__(self, terms: list[float]) -> None:
     super().__init__(terms)
-    # The term before the last.
+    # Term before the last.
     self.l_1 = self.terms[-2]
-    # The last term.
+    # Last term.
     self.l_2 = self.terms[-1]
+
+  @override
+  def function(self) -> str:
+    # NOTE: The first two terms need to have a pre-implemented function for them.
+    return f"F(1) = {self.a_1}, F(2) = {self.a_2}, F(n) = F(n - 1) + F(n - 2)"
 
 def identify_fibonacci_sequence(terms: list[float]) -> FibonacciSequence | None:
   """Checks if a sequence is fibonacci and, if so, constructs FibonacciSequence."""
@@ -25,9 +30,9 @@ def compute_fibonacci_term(sequence: FibonacciSequence, n: int) -> float:
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
 
-  # The last computed nth term.
+  # Last computed nth term.
   a_n = sequence.terms[-1]
-  # The two preceding terms.
+  # Two preceding terms.
   p_1, p_2 = sequence.l_1, sequence.l_2
 
   # NOTE: `n - 1` because we already have an initial computed value.

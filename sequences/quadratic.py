@@ -7,10 +7,26 @@ class QuadraticSequence(Sequence):
   @override
   def __init__(self, terms: list[float], d_s: list[float], d_d: float) -> None:
     super().__init__(terms)
-    # The differences between the terms.
+    # Differences between the terms.
     self.d_s = d_s
-    # The constant difference between the differences of the terms.
+    # Difference between the first two terms.
+    self.d_1 = d_s[0]
+    # Common difference between the differences of the terms.
     self.d_d = d_d
+
+    # Constant coefficient of n squared.
+    self.c_a = self.d_d / 2.0
+    # Constant coefficient of bare n.
+    self.c_b = self.d_1 - 3 * self.c_a
+    # Third lonely constant.
+    self.c_c = self.a_1 - (self.c_a + self.c_b)
+
+  @override
+  def function(self) -> str:
+    an_squared_str = f"{str(self.c_a)}n^2" if self.c_a != 1.0 else "n^2"
+    bn_str = f"{"+" if self.c_b > 0 else "-"} {str(abs(self.c_b))}n" if self.c_b else ""
+    c_str = f"{"+" if self.c_c > 0 else "-"} {str(abs(self.c_c))}" if self.c_c else ""
+    return f"Q(n) = {an_squared_str} {bn_str} {c_str}"
 
 def identify_quadratic_sequence(terms: list[float]) -> QuadraticSequence | None:
   """Checks if a sequence is quadratic and, if so, constructs QuadraticSequence."""
@@ -30,9 +46,4 @@ def compute_quadratic_term(sequence: QuadraticSequence, n: int) -> float:
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
 
-  # The differences between the terms.
-  d_s = sequence.d_s
-  # NOTE: `n - 1` because we already have an initial computed value.
-  for _ in range(len(sequence) - 1, n - 1):
-    d_s.append(d_s[-1] + sequence.d_d)
-  return sum(d_s) + sequence.a_1
+  return (sequence.c_a * n ** 2) + (sequence.c_b * n) + sequence.c_c

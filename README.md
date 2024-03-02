@@ -1,3 +1,3 @@
 # 🥸 Nerdyseq
 
-Programmatically find `T(n)` for *any* sequence.
+Programmatically find the $nth$ term for *any* sequence.

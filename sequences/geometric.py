@@ -6,8 +6,16 @@ class GeometricSequence(Sequence):
   @override
   def __init__(self, terms: list[float]) -> None:
     super().__init__(terms)
-    # The common ratio between the sequence elements.
+    # Common ratio between the sequence elements.
     self.r = self.a_2 / self.a_1
+
+  @override
+  def function(self) -> str:
+    # ~ Exponential Sequences.
+    if self.r == self.a_1:
+      return f"G(n) = {self.a_1}^n"
+    # ~ Geometric Sequences.
+    return f"G(1) = {self.a_1}, G(n) = {self.r}(n-1)"
 
 def identify_geometric_sequence(terms: list[float]) -> GeometricSequence | None:
   """Checks if a sequence is geometric and, if so, constructs GeometricSequence."""

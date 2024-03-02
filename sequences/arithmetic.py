@@ -6,8 +6,21 @@ class ArithmeticSequence(Sequence):
   @override
   def __init__(self, terms: list[float]) -> None:
     super().__init__(terms)
-    # The common difference between the sequence elements.
+    # Common difference between the sequence elements.
     self.d = self.a_2 - self.a_1
+
+  @override
+  def function(self) -> str:
+    # Difference between the first term and the common difference.
+    d_1 = self.a_1 - self.d
+    if not d_1:
+      if self.d == 1:
+        return "A(n) = n"
+      return f"A(n) = {self.d}n"
+
+    if self.d == 1:
+      return f"A(n) = n {"+" if d_1 > 0 else "-"} {abs(d_1)}"
+    return f"A(n) = {self.d}n {"+" if d_1 > 0 else "-"} {abs(d_1)}"
 
 def identify_arithmetic_sequence(terms: list[float]) -> ArithmeticSequence | None:
   """Checks if a sequence is arithmetic and, if so, constructs ArithmeticSequence."""
