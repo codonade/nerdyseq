@@ -1,10 +1,11 @@
 from math import inf
+from humanize.number import ordinal
+
 from sequences.arithmetic import compute_arithmetic_term, identify_arithmetic_sequence
 from sequences.cubic import compute_cubic_term, identify_cubic_sequence
 from sequences.fibonacci import compute_fibonacci_term, identify_fibonacci_sequence
 from sequences.geometric import compute_geometric_term, identify_geometric_sequence
 from sequences.quadratic import compute_quadratic_term, identify_quadratic_sequence
-from utility import postfix
 
 def panic(message: str) -> None:
   print(message); exit(0)
@@ -67,5 +68,5 @@ else:
           # ~ Unidentifiable Sequences.
           panic("😟 Couldn't identify this sequence.")
 
-# NOTE: `-1` should never occur - the program has to terminate before this.
-print(f"🥸  The {postfix(n)} term for {terms} is {a_n}.")
+# ~ Conclusion.
+print(f"🥸  The {ordinal(n)} term for {terms} is {a_n}.")
