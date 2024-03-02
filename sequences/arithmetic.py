@@ -1,5 +1,6 @@
 from typing import override
 from sequence import Sequence
+import stringified
 
 class ArithmeticSequence(Sequence):
   """Sequence with terms obtained by adding a constant value to the previous ones."""
@@ -8,20 +9,15 @@ class ArithmeticSequence(Sequence):
     super().__init__(terms)
     # Common difference between the sequence elements.
     self.d = self.a_2 - self.a_1
+    # Difference between the first term and the common difference.
+    self.d_1 = self.a_1 - self.d
 
-  # TODO: Simplify string manipulation.
   @override
   def function(self) -> str:
-    # Difference between the first term and the common difference.
-    d_1 = self.a_1 - self.d
-    if not d_1:
-      if self.d == 1:
-        return "A(n) = n"
-      return f"A(n) = {self.d}n"
-
-    if self.d == 1:
-      return f"A(n) = n {"+" if d_1 > 0 else "-"} {abs(d_1)}"
-    return f"A(n) = {self.d}n {"+" if d_1 > 0 else "-"} {abs(d_1)}"
+    if self.d == 0:
+      # NOTE: Constant arithmetic sequence.
+      return f"A(n) = {self.a_1}"
+    return f"A(n) = {stringified.algebraic(self.d, "n")} {stringified.operation(self.d_1)}"
 
 def identify_arithmetic_sequence(terms: list[float]) -> ArithmeticSequence | None:
   """Checks if a sequence is arithmetic and, if so, constructs ArithmeticSequence."""

@@ -13,9 +13,9 @@ class GeometricSequence(Sequence):
   def function(self) -> str:
     # ~ Exponential Sequences.
     if self.r == self.a_1:
-      return f"G(n) = {self.a_1}^n"
+      return f"G(n) = {self.a_1}ⁿ"
     # ~ Geometric Sequences.
-    return f"G(1) = {self.a_1}, G(n) = {self.r}(n-1)"
+    return f"G(1) = {self.a_1}, G(n) = {self.r}⁽ⁿ−¹⁾"
 
 def identify_geometric_sequence(terms: list[float]) -> GeometricSequence | None:
   """Checks if a sequence is geometric and, if so, constructs GeometricSequence."""

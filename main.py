@@ -1,5 +1,5 @@
-from math import inf
-from humanize.number import ordinal
+import math
+import humanize.number
 
 from sequences.arithmetic import compute_arithmetic_term, identify_arithmetic_sequence
 from sequences.cubic import compute_cubic_term, identify_cubic_sequence
@@ -18,7 +18,7 @@ if len(terms) < 2:
 # HACK: Certain paths may not define `n` so we define it here.
 n = -1
 # Nth term to be computed.
-a_n = inf
+a_n = math.inf
 
 # ~ Arithmetic Sequences.
 arithmetic_sequence = identify_arithmetic_sequence(terms)
@@ -69,4 +69,4 @@ else:
           panic("😟 Couldn't identify this sequence.")
 
 # ~ Conclusion.
-print(f"🥸  The {ordinal(n)} term for {terms} is {a_n}.")
+print(f"🥸  The {humanize.number.ordinal(n)} term for {terms} is {a_n}.")

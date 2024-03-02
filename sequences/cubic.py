@@ -1,6 +1,7 @@
 from typing import override
 from sequence import Sequence
 from sequences.quadratic import QuadraticSequence, identify_quadratic_sequence
+import stringified
 
 class CubicSequence(Sequence):
   """Sequence with terms obtained by applying a cubic function to n."""
@@ -25,13 +26,12 @@ class CubicSequence(Sequence):
     # Third lonely constant.
     self.c_d = self.a_1 - (self.c_a + self.c_b + self.c_c)
 
-  # TODO: Simplify string manipulation.
   @override
   def function(self) -> str:
-    an_cubed_str = f"{str(self.c_a)}n^3 " if self.c_a != 1.0 else "n^3 "
-    bn_squared_str = (f"{"+" if self.c_b > 0.0 else "-"} {str(abs(self.c_b))}n^2 " if self.c_b != 1.0 else "+ n^2 ") if self.c_b else ""
-    cn_str = (f"{"+" if self.c_c > 0.0 else "-"} {str(abs(self.c_c))}n " if self.c_c != 1.0 else "+ n ") if self.c_c else ""
-    d_str = f"{"+" if self.c_d > 0.0 else "-"} {str(abs(self.c_d))}" if self.c_d else ""
+    an_cubed_str = stringified.algebraic(self.c_a, "n³", " ")
+    bn_squared_str = stringified.algebraic_operation(self.c_b, "n²", " ")
+    cn_str = stringified.algebraic_operation(self.c_c, "n", " ")
+    d_str = stringified.operation(self.c_d)
     return f"C(n) = {an_cubed_str}{bn_squared_str}{cn_str}{d_str}"
 
 def identify_cubic_sequence(terms: list[float]) -> CubicSequence | None:
