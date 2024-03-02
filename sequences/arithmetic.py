@@ -9,6 +9,7 @@ class ArithmeticSequence(Sequence):
     # Common difference between the sequence elements.
     self.d = self.a_2 - self.a_1
 
+  # TODO: Simplify string manipulation.
   @override
   def function(self) -> str:
     # Difference between the first term and the common difference.

@@ -21,12 +21,13 @@ class QuadraticSequence(Sequence):
     # Third lonely constant.
     self.c_c = self.a_1 - (self.c_a + self.c_b)
 
+  # TODO: Simplify string manipulation.
   @override
   def function(self) -> str:
-    an_squared_str = f"{str(self.c_a)}n^2" if self.c_a != 1.0 else "n^2"
-    bn_str = f"{"+" if self.c_b > 0 else "-"} {str(abs(self.c_b))}n" if self.c_b else ""
-    c_str = f"{"+" if self.c_c > 0 else "-"} {str(abs(self.c_c))}" if self.c_c else ""
-    return f"Q(n) = {an_squared_str} {bn_str} {c_str}"
+    an_squared_str = f"{str(self.c_a)}n^2" if self.c_a != 1.0 else "n^2 "
+    bn_str = (f"{"+" if self.c_b > 0.0 else "-"} {str(abs(self.c_b))}n " if self.c_b != 1.0 else "+ n ") if self.c_b else ""
+    c_str = f"{"+" if self.c_c > 0.0 else "-"} {str(abs(self.c_c))} " if self.c_c else ""
+    return f"Q(n) = {an_squared_str}{bn_str}{c_str}"
 
 def identify_quadratic_sequence(terms: list[float]) -> QuadraticSequence | None:
   """Checks if a sequence is quadratic and, if so, constructs QuadraticSequence."""
