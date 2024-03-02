@@ -11,6 +11,8 @@ def algebraic(constant: float, variable: str, spacings: str = "") -> str:
     return ""
   elif constant == 1.0:
     return f"{variable}{spacings}"
+  elif constant == -1.0:
+    return f"-{variable}{spacings}"
   else:
     return f"{constant}{variable}{spacings}"
 
@@ -21,5 +23,7 @@ def algebraic_operation(constant: float, variable: str, spacings: str = "") -> s
     return ""
   elif constant == 1.0:
     return f"+ {variable}{spacings}"
+  elif constant == -1.0:
+    return f"- {variable}{spacings}"
   else:
     return f"{"+" if constant > 0.0 else "-"} {abs(constant)}{variable}{spacings}"
