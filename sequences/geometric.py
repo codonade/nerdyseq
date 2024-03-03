@@ -15,7 +15,7 @@ class GeometricSequence(Sequence):
     if self.r == self.a_1:
       return f"G(n) = {self.a_1}ⁿ"
     # ~ Geometric Sequences.
-    return f"G(1) = {self.a_1}, G(n) = {self.r}⁽ⁿ−¹⁾"
+    return f"G(1) = {self.a_1}, G(n) = G(1) × {self.r}⁽ⁿ−¹⁾"
 
 def identify_geometric_sequence(terms: list[float]) -> GeometricSequence | None:
   """Checks if a sequence is geometric and, if so, constructs GeometricSequence."""
