@@ -6,6 +6,7 @@ from sequences.cubic import compute_cubic_term, identify_cubic_sequence
 from sequences.fibonacci import compute_fibonacci_term, identify_fibonacci_sequence
 from sequences.geometric import compute_geometric_term, identify_geometric_sequence
 from sequences.quadratic import compute_quadratic_term, identify_quadratic_sequence
+from sequences.unnamed import compute_unnamed_term, identify_unnamed_sequence
 
 def panic(message: str) -> None:
   print(message); exit(0)
@@ -38,35 +39,44 @@ else:
     a_n = compute_geometric_term(geometric_sequence, n)
   else:
 
-    # ~ Fibonacci Sequences.
-    fibonacci_sequence = identify_fibonacci_sequence(terms)
-    if fibonacci_sequence:
-      print(f"🥸  {terms} is a fibonacci sequence.")
-      print(f"🥸  {fibonacci_sequence.function()}")
+    # ~ Unnamed Sequences.
+    unnamed_sequence = identify_unnamed_sequence(terms)
+    if unnamed_sequence:
+      print(f"🥸  {terms} is a unnamed sequence.")
+      print(f"🥸  {unnamed_sequence.function()}")
       n = int(input("🧐 Enter the term number: "))
-      a_n = compute_fibonacci_term(fibonacci_sequence, n)
+      a_n = compute_unnamed_term(unnamed_sequence, n)
     else:
 
-      # ~ Quadratic Sequences.
-      quadratic_sequence = identify_quadratic_sequence(terms)
-      if quadratic_sequence:
-        print(f"🥸  {terms} is a quadratic sequence.")
-        print(f"🥸  {quadratic_sequence.function()}")
+      # ~ Fibonacci Sequences.
+      fibonacci_sequence = identify_fibonacci_sequence(terms)
+      if fibonacci_sequence:
+        print(f"🥸  {terms} is a fibonacci sequence.")
+        print(f"🥸  {fibonacci_sequence.function()}")
         n = int(input("🧐 Enter the term number: "))
-        a_n = compute_quadratic_term(quadratic_sequence, n)
+        a_n = compute_fibonacci_term(fibonacci_sequence, n)
       else:
 
-        # ~ Cubic Sequences.
-        cubic_sequence = identify_cubic_sequence(terms)
-        if cubic_sequence:
-          print(f"🥸  {terms} is a cubic sequence.")
-          print(f"🥸  {cubic_sequence.function()}")
+        # ~ Quadratic Sequences.
+        quadratic_sequence = identify_quadratic_sequence(terms)
+        if quadratic_sequence:
+          print(f"🥸  {terms} is a quadratic sequence.")
+          print(f"🥸  {quadratic_sequence.function()}")
           n = int(input("🧐 Enter the term number: "))
-          a_n = compute_cubic_term(cubic_sequence, n)
+          a_n = compute_quadratic_term(quadratic_sequence, n)
         else:
 
-          # ~ Unidentifiable Sequences.
-          panic("😟 Couldn't identify this sequence.")
+          # ~ Cubic Sequences.
+          cubic_sequence = identify_cubic_sequence(terms)
+          if cubic_sequence:
+            print(f"🥸  {terms} is a cubic sequence.")
+            print(f"🥸  {cubic_sequence.function()}")
+            n = int(input("🧐 Enter the term number: "))
+            a_n = compute_cubic_term(cubic_sequence, n)
+          else:
+
+            # ~ Unidentifiable Sequences.
+            panic("😟 Couldn't identify this sequence.")
 
 # ~ Conclusion.
 print(f"🥸  The {humanize.number.ordinal(n)} term for {terms} is {a_n}.")
