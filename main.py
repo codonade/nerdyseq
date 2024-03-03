@@ -15,6 +15,9 @@ terms = [float(string) for string in input("🧐 Enter the first terms: ").split
 # NOTE: It's impossible to find a pattern with only one term!
 if len(terms) < 2:
   panic("😠 Cannot identify sequences with less than 2 terms.")
+# NOTE: When having lesser terms, the possibilities increase. More = Accuracy.
+elif len(terms) < 4:
+  print(f"😅 Oh... only {len(terms)} terms? That's a few, but I'll try!")
 
 # HACK: Certain paths may not define `n` so we define it here.
 n = -1

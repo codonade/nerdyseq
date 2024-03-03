@@ -1,5 +1,5 @@
 from typing import override
-from sequence import Sequence
+from sequences import Sequence
 import stringified
 
 class ArithmeticSequence(Sequence):
@@ -15,8 +15,9 @@ class ArithmeticSequence(Sequence):
   @override
   def function(self) -> str:
     if self.d == 0:
-      # NOTE: Constant arithmetic sequence.
+      # ~ Constant Arithmetic Sequences.
       return f"A(n) = {self.a_1}"
+    # ~ Ordinary Arithmetic Sequences.
     return f"A(n) = {stringified.algebraic(self.d, "n")} {stringified.operation(self.d_1)}"
 
 def identify_arithmetic_sequence(terms: list[float]) -> ArithmeticSequence | None:
@@ -31,5 +32,5 @@ def compute_arithmetic_term(sequence: ArithmeticSequence, n: int) -> float:
   if n <= len(sequence):
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
-
+  # NOTE: a₁ + d × (n - 1)
   return sequence.a_1 + sequence.d * (n - 1)

@@ -1,5 +1,5 @@
 from typing import override
-from sequence import Sequence
+from sequences import Sequence
 
 class FibonacciSequence(Sequence):
   """Sequence with terms obtained by mulltiplying the previous ones by a constant value."""
@@ -35,7 +35,7 @@ def compute_fibonacci_term(sequence: FibonacciSequence, n: int) -> float:
   # Two preceding terms.
   p_1, p_2 = sequence.l_1, sequence.l_2
 
-  # NOTE: `n - 1` because we already have an initial computed value.
+  # NOTE: Remember that we have an initial computed value.
   for _ in range(len(sequence) - 1, n - 1):
     a_n = p_1 + p_2
     p_1, p_2 = p_2, a_n

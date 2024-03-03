@@ -1,5 +1,5 @@
 from typing import override
-from sequence import Sequence
+from sequences import Sequence
 
 class GeometricSequence(Sequence):
   """Sequence with terms obtained by mulltiplying the previous ones by a constant value."""
@@ -14,7 +14,9 @@ class GeometricSequence(Sequence):
     # ~ Exponential Sequences.
     if self.r == self.a_1:
       return f"G(n) = {self.a_1}ⁿ"
-    # ~ Geometric Sequences.
+
+    # ~ Ordinary Geometric Sequences.
+    # NOTE: The first term need to have a pre-implemented function.
     return f"G(1) = {self.a_1}, G(n) = G(1) × {self.r}⁽ⁿ−¹⁾"
 
 def identify_geometric_sequence(terms: list[float]) -> GeometricSequence | None:
@@ -30,5 +32,5 @@ def compute_geometric_term(sequence: GeometricSequence, n: int) -> float:
   if n <= len(sequence):
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
-
+  # NOTE: a₁ × r⁽ⁿ−¹⁾
   return sequence.a_1 * (sequence.r ** (n - 1))

@@ -1,5 +1,5 @@
 from typing import override
-from sequence import Sequence
+from sequences import Sequence
 from sequences.quadratic import QuadraticSequence, identify_quadratic_sequence
 import stringified
 
@@ -8,6 +8,7 @@ class CubicSequence(Sequence):
   @override
   def __init__(self, terms: list[float], d_s: QuadraticSequence) -> None:
     super().__init__(terms)
+
     # Sequence of differences between the terms.
     self.d_s = d_s
     # Difference between the first two terms.
@@ -28,17 +29,16 @@ class CubicSequence(Sequence):
 
   @override
   def function(self) -> str:
-    an_cubed_str = stringified.algebraic(self.c_a, "n³", " ")
-    bn_squared_str = stringified.algebraic_operation(self.c_b, "n²", " ")
-    cn_str = stringified.algebraic_operation(self.c_c, "n", " ")
+    a__n_cubed_str = stringified.algebraic(self.c_a, "n³", " ")
+    b__n_squared_str = stringified.algebraic_operation(self.c_b, "n²", " ")
+    c__n_str = stringified.algebraic_operation(self.c_c, "n", " ")
     d_str = stringified.operation(self.c_d)
-    return f"C(n) = {an_cubed_str}{bn_squared_str}{cn_str}{d_str}"
+    return f"C(n) = {a__n_cubed_str}{b__n_squared_str}{c__n_str}{d_str}"
 
 def identify_cubic_sequence(terms: list[float]) -> CubicSequence | None:
   """Checks if a sequence is cubic and, if so, constructs CubicSequence."""
   # Calculates the differences between the terms.
   d_s = [terms[i] - terms[i - 1] for i in range(1, len(terms))]
-
   # NOTE: Differences between the terms should form a quadratic sequence.
   quadratic_sequence = identify_quadratic_sequence(d_s)
   return CubicSequence(terms, quadratic_sequence) if quadratic_sequence else None
@@ -48,5 +48,5 @@ def compute_cubic_term(sequence: CubicSequence, n: int) -> float:
   if n <= len(sequence):
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
-
+  # NOTE: an³ + bn² + cn + d
   return (sequence.c_a * n ** 3) + (sequence.c_b * n ** 2) + (sequence.c_c * n) + sequence.c_d

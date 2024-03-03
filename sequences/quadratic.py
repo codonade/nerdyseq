@@ -1,5 +1,5 @@
 from typing import override
-from sequence import Sequence
+from sequences import Sequence
 from sequences.arithmetic import identify_arithmetic_sequence
 import stringified
 
@@ -24,10 +24,10 @@ class QuadraticSequence(Sequence):
 
   @override
   def function(self) -> str:
-    an_squared_str = stringified.algebraic(self.c_a, "n²", " ")
-    bn_str = stringified.algebraic_operation(self.c_b, "n", " ")
+    a__n_squared_str = stringified.algebraic(self.c_a, "n²", " ")
+    b__n_str = stringified.algebraic_operation(self.c_b, "n", " ")
     c_str = stringified.operation(self.c_c)
-    return f"Q(n) = {an_squared_str}{bn_str}{c_str}"
+    return f"Q(n) = {a__n_squared_str}{b__n_str}{c_str}"
 
 def identify_quadratic_sequence(terms: list[float]) -> QuadraticSequence | None:
   """Checks if a sequence is quadratic and, if so, constructs QuadraticSequence."""
@@ -46,5 +46,5 @@ def compute_quadratic_term(sequence: QuadraticSequence, n: int) -> float:
   if n <= len(sequence):
     # Skips unnecessary computation.
     return sequence.terms[n - 1]
-
+  # NOTE: an² + bn + c
   return (sequence.c_a * n ** 2) + (sequence.c_b * n) + sequence.c_c
