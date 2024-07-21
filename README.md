@@ -25,3 +25,7 @@ I've created this program after spending nearly two hours trying to find the $nt
 term for a sequence present in my 10th grade mathematics book. It's in no means
 perfect, and it starts hallucinating quickly when provided with complex sequences,
 but building it was fun, and I've learned a lot through out the process.
+
+## 🪪 License
+
+This program is under the [`MIT License.`](LICENSE.txt)
